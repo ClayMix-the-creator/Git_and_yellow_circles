@@ -10,29 +10,33 @@ class MyWidget(QMainWindow):
     def __init__(self):
         super().__init__()
         uic.loadUi('UI.ui', self)
+
         self.setWindowTitle('Git и жёлтые окружности')
 
         self.but.clicked.connect(self.run)
+        self.flag = False
 
-    def paint(self):
-        self.repaint()
+    def paint(self, event):
+        if self.flag:
+            x = random.randint(0, 450)
+            y = random.randint(0, 450)
+            r = random.randint(1, 50)
 
-    def paintEvent(self):
-        qp = QPainter()
-        qp.begin(self)
+            self.qp.setPen(QColor(255, 255, 0))
 
-        x = random.randint(0, 450)
-        y = random.randint(0, 450)
-        r = random.randint(1, 50)
+            self.qp.drawEllipse(x, y, r, r)
 
-        qp.setBrush(QColor(255, 255, 0))
+        # flag = False
 
-        qp.drawEllipse(x, y, r, r)
-        qp.end()
+    def paintEvent(self, event):
+        self.qp = QPainter()
+        self.qp.begin(self)
+        self.paint(self.qp)
+        self.qp.end()
 
     def run(self):
-        self.repaint()
-
+        self.flag = True
+        self.update()
 
 
 if __name__ == '__main__':
