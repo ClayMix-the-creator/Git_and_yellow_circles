@@ -1,32 +1,31 @@
 import sys
-import random
 
-from PyQt5 import uic
+from random import randint
 from PyQt5.QtWidgets import QApplication, QMainWindow
 from PyQt5.QtGui import QPainter, QColor
+from UI import Ui_MainWindow
 
 
-class MyWidget(QMainWindow):
+class MyWidget(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super().__init__()
-        uic.loadUi('UI.ui', self)
-
         self.setWindowTitle('Git и жёлтые окружности')
+        self.setupUi(self)
 
         self.but.clicked.connect(self.run)
         self.flag = False
 
     def paint(self, event):
         if self.flag:
-            x = random.randint(0, 450)
-            y = random.randint(0, 450)
-            r = random.randint(1, 50)
+            x = randint(0, 300)
+            y = randint(0, 300)
+            r = randint(1, 100)
 
-            self.qp.setPen(QColor(255, 255, 0))
+            self.qp.setPen(QColor(randint(0, 255), randint(0, 255), randint(0, 255)))
 
             self.qp.drawEllipse(x, y, r, r)
 
-        # flag = False
+        self.flag = False
 
     def paintEvent(self, event):
         self.qp = QPainter()
