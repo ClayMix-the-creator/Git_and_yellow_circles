@@ -9,7 +9,7 @@ from UI import Ui_MainWindow
 class MyWidget(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle('Git и жёлтые окружности')
+        self.setWindowTitle('Git и случайные окружности')
         self.setupUi(self)
 
         self.but.clicked.connect(self.run)
